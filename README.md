@@ -4,14 +4,14 @@ This template provides a starter project that implements best practices in codin
 ## Requirements
 
 - Install Node
-	- on OSX, install [home brew](http://brew.sh/) and type `brew install node`.
-	- on Windows, use the installer available at [nodejs.org](http://nodejs.org/).
-    - On OSX you can alleviate the need to run as sudo by [following these instructions](http://jpapa.me/nomoresudo) by John Papa.
-- Open terminal.
-- Type `npm install -g node-inspector bower gulp`.
+    - on OSX, install [home brew](http://brew.sh/) and type `brew install node`
+    - on Windows, use the installer available at [nodejs.org](http://nodejs.org/)
+    - On OSX you can alleviate the need to run as sudo by [following John Papa's instructions](http://jpapa.me/nomoresudo)
+- Open terminal
+- Type `npm install -g node-inspector bower gulp`
 - Install Ruby (required for Sass)
-    - on OSX, Ruby comes pre-installed.
-    - on Windows, use the instructions [here](http://rubyinstaller.org/downloads/).
+    - on OSX, Ruby comes pre-installed
+    - on Windows, use the instructions [here](http://rubyinstaller.org/downloads/)
 
 ## Quick Start
 Clone this repo and run the content locally
