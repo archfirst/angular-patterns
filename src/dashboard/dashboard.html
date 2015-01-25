@@ -1,0 +1,69 @@
+<section id="dashboard-view" class="container-fluid">
+
+    <h1>Asset Allocation</h1>
+
+    <div class="row">
+
+        <div class="col-sm-3 col-md-2 sidebar">
+            <dl>
+                <dt>Total Value</dt>
+                <dd>{{vm.account.market_value | currency:undefined:0}}</dd>
+                <dt>Your Investment</dt>
+                <dd>{{vm.account.investment | currency:undefined:0}}</dd>
+                <dt>Your Earnings</dt>
+                <dd>{{vm.account.earnings | currency:undefined:0}}</dd>
+                <dt>Cash</dt>
+                <dd>{{vm.account.cash | currency:undefined:0}}</dd>
+            </dl>
+
+            <div class="medialinks">
+                <a href="http://www.facebook.com/" target="_blank">
+                    <img src="images/facebook.png" width="30px" height="30px"/>
+                </a>
+                <a href="http://www.twitter.com/" target="_blank">
+                    <img src="images/twitter.png" width="30px" height="30px"/>
+                </a>
+                <a href="http://plus.google.com/" target="_blank">
+                    <img src="images/google-plus.png" width="30px" height="30px"/>
+                </a>
+                <a href="http://www.linkedin.com/" target="_blank">
+                    <img src="images/linkedin.png" width="30px" height="30px"/>
+                </a>
+            </div>
+        </div><!-- sidebar -->
+
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <div class="row">
+                <div class="col-xs-2 chart-column">
+                    <div data-at-barchart data-assets="vm.account.assets"></div>
+                </div>
+
+                <div class="col-xs-10">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Asset Class</th>
+                                    <th class="text-right">Market Value</th>
+                                    <th class="text-right">Allocation</th>
+                                    <th class="text-right">Return</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr data-ng-repeat="a in vm.account.assets">
+                                    <td>{{a.asset_class}}</td>
+                                    <td class="text-right">{{a.market_value | currency:undefined:0}}</td>
+                                    <td class="text-right">{{a.percent_allocation | percentage:0}}</td>
+                                    <td class="text-right">{{a.percent_return | percentage:2}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div><!-- main -->
+
+    </div><!-- row -->
+
+</section>

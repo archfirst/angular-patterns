@@ -1,0 +1,38 @@
+{
+    "market_value": 1956222,
+    "investment": 1000000,
+    "earnings": 956222,
+    "cash": 39124,
+    "assets": [
+        {
+            "asset_class": "US Stocks",
+            "market_value": 586866,
+            "percent_allocation": 0.30,
+            "percent_return": 0.0680
+        },
+        {
+            "asset_class": "Foreign Stocks",
+            "market_value": 293433,
+            "percent_allocation": 0.15,
+            "percent_return": 0.0840
+        },
+        {
+            "asset_class": "Emerging Markets",
+            "market_value": 293433,
+            "percent_allocation": 0.15,
+            "percent_return": 0.1270
+        },
+        {
+            "asset_class": "Bonds",
+            "market_value": 743364,
+            "percent_allocation": 0.38,
+            "percent_return": 0.0220
+        },
+        {
+            "asset_class": "Cash",
+            "market_value": 39124,
+            "percent_allocation": 0.02,
+            "percent_return": 0.0000
+        }
+    ]
+}
