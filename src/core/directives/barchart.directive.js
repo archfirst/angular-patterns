@@ -10,7 +10,10 @@
         .module('app.core')
         .directive('atBarchart', barchartDirective);
 
-    function barchartDirective() {
+    barchartDirective.$inject = ['$window'];
+
+    /* @ngInject */
+    function barchartDirective($window) {
 
         var directive = {
             link: link,
@@ -25,24 +28,22 @@
             var tableRowHeight = 37; // TODO: take out hard coding
 
             // initialize the chart
-            var base = d3.select(element[0])
-                .append('svg')
-                .style('width', '100%');
+            var base = d3.select(element[0]).append('svg');
             var barChart = new BarChart(base);
             barChart.barHeight(tableRowHeight);
 
             // Redraw whenever assets change
-            scope.$watch('assets', function() {
-                draw();
-            });
+            scope.$watch('assets', draw);
 
             // Redraw whenever window resizes
             // TODO: Add a throttle function
-            window.onresize = function() {
-                // TODO: Fix this hack. It prevents drawing when we are not on the dashboard page
-                if (element[0].offsetWidth === 0) { return; }
-                draw();
-            };
+            angular.element($window).on('resize', draw);
+
+            // Remove the redraw handler when the scope is destroyed
+            // This prevents redrawing when the view containing the barchart is destroyed
+            scope.$on('$destroy', function() {
+                angular.element($window).off('resize', draw);
+            });
 
             function draw() {
                 var assets = scope.assets;
@@ -58,7 +59,9 @@
                     };
                 });
 
-                barChart.draw(data);
+                barChart
+                    .width(element.width())
+                    .draw(data);
             }
         }
     }
@@ -92,19 +95,22 @@
             .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
     }
 
-    BarChart.prototype.barHeight = function(barHeight) {
-        this.barHeight = barHeight;
+    BarChart.prototype.width = function(newWidth) {
+        this.w = newWidth;
+        this.plotWidth = this.w - this.margin.left - this.margin.right;
+        this.base.attr('width', this.w);
+        this.x.range([0, this.plotWidth]);
+        return this;
+    };
+
+    BarChart.prototype.barHeight = function(newBarHeight) {
+        this.bh = newBarHeight;
         return this;
     };
 
     BarChart.prototype.draw = function(data) {
-        // Compute x-dimensions based on the container width
-        this.w = this.base.node().offsetWidth;
-        this.plotWidth = this.w - this.margin.left - this.margin.right;
-        this.x.range([0, this.plotWidth]);
-
         // Compute y-dimensions based on bar height
-        this.plotHeight = this.barHeight * data.length;
+        this.plotHeight = this.bh * data.length;
         this.h = this.plotHeight + this.margin.top + this.margin.bottom;
         this.base.attr('height', this.h);
         this.y.rangeBands([0, this.plotHeight], 0.05, 0);
