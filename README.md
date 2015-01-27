@@ -52,7 +52,7 @@ The folder structure is somewhat simplified and flatter compared to John Papa's 
 
 - `build:` Production build (do not check in)
 
-- `mock-server:` Used to serve the application during development and also to provide mock data. The real server is intended to be developed as a seperate project utilizing best practices for the chosen server-side technology. This approach decouples client and server development so that they can progress independently and forces them to define tighter APIs.
+- `mock-server:` Used to serve the application during development and also to provide mock data. The real server is intended to be developed as a separate project utilizing best practices for the chosen server-side technology. This approach decouples client and server development so that they can progress independently and forces them to define tighter APIs.
 
 - `node_modules:` Node.js modules downloaded by `npm install` (do not check in)
 
