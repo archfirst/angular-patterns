@@ -1,5 +1,5 @@
 # Angular Template
-This template provides a starter project that implements best practices in coding, building and testing AngularJS applications. It is heavily influenced by John Pappa's [AngularJS Style Guide](https://github.com/johnpapa/angularjs-styleguide) and his [Gulp Patterns](https://github.com/johnpapa/gulp-patterns) project. I would like to take this opportunity to thank John for providing these excellant resources to make our jobs easier and more enjoyable.
+This template provides a starter project that implements best practices in coding, building and testing AngularJS applications. It is heavily influenced by John Papa's [AngularJS Style Guide](https://github.com/johnpapa/angularjs-styleguide) and his [Gulp Patterns](https://github.com/johnpapa/gulp-patterns) project. I would like to take this opportunity to thank John for providing these excellent resources to make our jobs easier and more enjoyable.
 
 ## Requirements
 
@@ -35,7 +35,7 @@ This will build a production-ready package in the `/build` folder.
 
 ## Folder Structure
 
-The folder structure is somewhat simplified and flatter compared to John Pappa's [Gulp Patterns](https://github.com/johnpapa/gulp-patterns) project. The description below includes reasons for some of my customizations.
+The folder structure is somewhat simplified and flatter compared to John Papa's [Gulp Patterns](https://github.com/johnpapa/gulp-patterns) project. The description below includes reasons for some of my customizations.
 
 ### Highest Level Structure
 
@@ -58,7 +58,7 @@ The folder structure is somewhat simplified and flatter compared to John Pappa's
 
 - `src:` contains all the client source files including HTML, styles (in SASS format), JavaScript and images
 
-- `test:` contains client tests. This folder is intentionally kept separate from client source becuase I expect many different types of tests in this folder (unit, integration, acceptance). On real projects, the number of test files can easily exceed the number of source files, hence I like to keep the clutter away from the real source - just my preference!
+- `test:` contains client tests. This folder is intentionally kept separate from client source because I expect many different types of tests in this folder (unit, integration, acceptance). On real projects, the number of test files can easily exceed the number of source files, hence I like to keep the clutter away from the real source - just my preference!
 
 ### Source Folder Structure
 
