@@ -52,7 +52,7 @@
     "maxparams": 10,
 
     // {int} Max number statements per function
-    "maxstatements": 40,
+    "maxstatements": 50,
 
     // true: Require capitalization of all constructor functions e.g. `new F()`
     "newcap": true,
@@ -84,7 +84,7 @@
     "quotmark": "single",
 
     // true: prohibits the use of the grouping operator for single-expression statements
-    "singleGroups": true,
+    "singleGroups": false,
 
     // true: Requires all functions run in ES5 Strict Mode
     "strict": true,

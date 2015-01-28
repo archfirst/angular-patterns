@@ -47,17 +47,11 @@
     "requireSpaceAfterBinaryOperators": true,
     "requireSpacesInConditionalExpression": true,
     "requireSpaceBeforeBlockStatements": true,
-    "requireLineFeedAtFileEnd": true,
-    "disallowSpacesInsideObjectBrackets": "all",
-    "disallowSpacesInsideArrayBrackets": "all",
-    "disallowSpacesInsideParentheses": true,
 
     "validateJSDoc": {
         "checkParamNames": true,
         "requireParamTypes": true
     },
-
-    "disallowMultipleLineBreaks": true,
 
     "disallowCommaBeforeLineBreak": null,
     "disallowDanglingUnderscores": null,
