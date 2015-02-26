@@ -199,15 +199,7 @@ gulp.task('build-specs', ['templatecache'], function(done) {
  */
 gulp.task('build', ['optimize', 'images', 'fonts'], function() {
     log('Building everything');
-
-    var msg = {
-        title: 'gulp build',
-        subtitle: 'Deployed to the build folder',
-        message: 'Running `gulp serve-build`'
-    };
     del(config.temp);
-    log(msg);
-    notify(msg);
 });
 
 /**
@@ -342,6 +334,13 @@ gulp.task('serve-dev', ['inject'], function() {
  * --nosync
  */
 gulp.task('serve-build', ['build'], function() {
+    var msg = {
+        title: 'gulp build',
+        subtitle: 'Deployed to the build folder',
+        message: 'Running `gulp serve-build`'
+    };
+    log(msg);
+    notify(msg);
     serve(false /*isDev*/);
 });
 
