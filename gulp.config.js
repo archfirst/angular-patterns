@@ -36,8 +36,8 @@ module.exports = function() {
             client + '**/*.module.js',
             client + '**/*.js'
         ],
-        sass: client + '/**/*.scss',
-        sassRoot: client + '/app.scss',
+        sass: client + '**/*.scss',
+        sassRoot: client + 'app.scss',
         report: report,
         root: root,
         sassCache: sassCache,

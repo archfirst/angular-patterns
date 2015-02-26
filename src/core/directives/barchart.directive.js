@@ -17,7 +17,7 @@
 
         var directive = {
             link: link,
-            restrict: 'A',
+            restrict: 'E',
             scope: {
                 assets: '='
             }

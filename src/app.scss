@@ -5,4 +5,7 @@ $icon-font-path: "../bower_components/bootstrap-sass/assets/fonts/bootstrap/";
 @import "../bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
 
 @import "core/styles/core";
+
+@import "core/directives/barchart";
+
 @import "dashboard/dashboard";
