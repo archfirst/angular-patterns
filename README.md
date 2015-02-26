@@ -9,11 +9,6 @@ This template provides a starter project that implements best practices in codin
     - On OSX you can alleviate the need to run as sudo by [following John Papa's instructions](http://jpapa.me/nomoresudo)
 - Open terminal
 - Type `npm install -g node-inspector bower gulp`
-- Install Ruby (required for Sass)
-    - on OSX, Ruby comes pre-installed
-    - on Windows, use the instructions [here](http://rubyinstaller.org/downloads/)
-- Install Sass
-    - `gem install sass` (on OSX you may need to `sudo` this command)
 
 ## Quick Start
 Clone this repo and run the content locally:
