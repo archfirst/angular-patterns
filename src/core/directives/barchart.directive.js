@@ -1,5 +1,6 @@
-// Usage
-// <div data-at-barchart assets="vm.account.assets"></div>
+// Usage (the prefix "at" stands for angular-template):
+// <at-barchart data-assets="vm.account.assets"></at-barchart>
+
 /* global d3 */
 /* jshint -W126 */
 
