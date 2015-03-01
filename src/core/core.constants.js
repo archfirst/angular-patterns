@@ -1,3 +1,5 @@
+/* global _, d3 */
+
 (function() {
     'use strict';
 
