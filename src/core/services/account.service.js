@@ -7,6 +7,7 @@
         .factory('accountService', accountService);
 
     accountService.$inject = ['$http', '$location', 'exception', 'api'];
+
     /* @ngInject */
     function accountService($http, $location, exception, api) {
         var service = {

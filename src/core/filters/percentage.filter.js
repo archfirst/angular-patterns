@@ -11,6 +11,7 @@
         .filter('percentage', formatPercent);
 
     formatPercent.$inject = ['$filter'];
+
     /* @ngInject */
     function formatPercent($filter) {
         return function(input, decimals) {
