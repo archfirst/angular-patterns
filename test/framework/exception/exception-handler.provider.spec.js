@@ -1,4 +1,4 @@
-/* jshint -W024, -W030, -W117 */
+/* jshint -W024, -W030, -W098, -W117 */
 describe('fw.exception', function() {
     'use strict';
     var exceptionHandlerProvider;
