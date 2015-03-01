@@ -3,7 +3,7 @@
 
     angular.module('app.core', [
         // Angular modules
-        'ngAnimate', 'ngSanitize',
+        'ngSanitize',
 
         // Our reusable framework
         'fw.exception', 'fw.logger', 'fw.router',
