@@ -5,9 +5,7 @@
 
     var config = {
         appErrorPrefix: '[Angular Template Error] ',
-        appTitle: 'Angular Template',
-        imageBasePath: '/images/photos/',
-        unknownPersonImageSource: 'unknown_person.jpg'
+        appTitle: 'Angular Template'
     };
 
     core.value('config', config);
