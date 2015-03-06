@@ -23,8 +23,7 @@
                     controllerAs: 'vm',
                     title: 'Profile',
                     settings: {
-                        nav: 2,
-                        content: '<i class="fa fa-lock"></i> Profile'
+                        nav: 2  // position in navbar
                     }
                 }
             }

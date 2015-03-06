@@ -23,8 +23,7 @@
                     controllerAs: 'vm',
                     title: 'Dashboard',
                     settings: {
-                        nav: 1,
-                        content: '<i class="fa fa-dashboard"></i> Dashboard'
+                        nav: 1  // position in navbar
                     }
                 }
             }
