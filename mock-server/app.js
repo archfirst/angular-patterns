@@ -44,6 +44,7 @@ switch (environment) {
         app.use(express.static('./src/'));
         app.use(express.static('./'));
         app.use(express.static('./tmp'));
+        app.use(express.static('./bower_components/bootstrap-sass/assets/'));  // serves fonts
         app.use('/*', express.static('./src/index.html'));
         break;
 }
