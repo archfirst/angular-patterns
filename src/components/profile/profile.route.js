@@ -2,28 +2,28 @@
     'use strict';
 
     angular
-        .module('app.dashboard')
+        .module('app.profile')
         .run(appRun);
 
     appRun.$inject = ['routerHelper'];
 
     /* @ngInject */
     function appRun(routerHelper) {
-        routerHelper.configureStates(getStates(), '/');
+        routerHelper.configureStates(getStates());
     }
 
     function getStates() {
         return [
             {
-                state: 'dashboard',
+                state: 'profile',
                 config: {
-                    url: '/',
-                    templateUrl: 'dashboard/dashboard.html',
-                    controller: 'DashboardController',
+                    url: '/profile',
+                    templateUrl: 'components/profile/profile.html',
+                    controller: 'ProfileController',
                     controllerAs: 'vm',
-                    title: 'Dashboard',
+                    title: 'Profile',
                     settings: {
-                        nav: 1  // position in navbar
+                        nav: 2  // position in navbar
                     }
                 }
             }
