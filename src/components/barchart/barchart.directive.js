@@ -57,12 +57,16 @@
             scope.$watch('chartdata', drawChart);
 
             // Redraw whenever window resizes, adding some debounce
-            angular.element($window).on('resize', _.debounce(drawChart, 250));
+            var debouncedDrawChart = _.debounce(drawChart, 250);
+            angular.element($window).on('resize', debouncedDrawChart);
 
             // Remove the redraw handler when the scope is destroyed
             // This prevents redrawing when the view containing the barchart is destroyed
             scope.$on('$destroy', function() {
-                angular.element($window).off('resize', drawChart);
+                if (debouncedDrawChart) {
+                    angular.element($window).off('resize', debouncedDrawChart);
+                    debouncedDrawChart = undefined;
+                }
             });
 
             function drawChart() {
