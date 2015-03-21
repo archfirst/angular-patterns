@@ -1,7 +1,9 @@
 (function () {
 
+    'use strict';
+
     angular.module('app.dashboard')
-        .directive('dashboard', function(){
+        .directive('dashboard', function () {
 
             return {
                 restrict: 'E',
@@ -22,16 +24,16 @@
         activate();
 
         function activate() {
-            return getAccount().then(function() {
+            return getAccount().then(function () {
                 logger.info('Activated Dashboard View');
             });
         }
 
         function getAccount() {
-            return accountService.getAccount().then(function(data) {
+            return accountService.getAccount().then(function (data) {
 
                 // Convert assets to chart data
-                var chartdata = _.map(data.assets, function(asset) {
+                var chartdata = _.map(data.assets, function (asset) {
                     return {
                         key: asset.asset_class,
                         value: asset.percent_allocation * 100

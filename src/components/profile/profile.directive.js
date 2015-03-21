@@ -1,7 +1,9 @@
 (function () {
 
+    'use strict';
+
     angular.module('app.profile')
-        .directive('profile', function(){
+        .directive('profile', function () {
 
             return {
                 restrict: 'E',

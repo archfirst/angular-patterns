@@ -1,5 +1,7 @@
 (function () {
 
+    'use strict';
+
     angular.module('app.core')
         .directive('app', function () {
 
