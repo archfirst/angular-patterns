@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -18,9 +18,7 @@
                 state: 'profile',
                 config: {
                     url: '/profile',
-                    templateUrl: 'components/profile/profile.html',
-                    controller: 'ProfileController',
-                    controllerAs: 'vm',
+                    template: '<profile></profile>',
                     title: 'Profile',
                     settings: {
                         nav: 2  // position in navbar
