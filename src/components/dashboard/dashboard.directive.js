@@ -8,13 +8,16 @@
             return {
                 restrict: 'E',
                 templateUrl: 'components/dashboard/dashboard.html',
-                controller: DashboardController,
+                controller: 'DashboardController',
                 controllerAs: 'vm',
                 bindToController: true
             };
-        });
+        })
+        .controller('DashboardController', DashboardController);
 
     DashboardController.$inject = ['accountService', 'logger', '_'];
+
+    /* @ngInject */
     function DashboardController(accountService, logger, _) {
         var vm = this;
 
