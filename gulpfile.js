@@ -6,7 +6,6 @@ var args = require('yargs').argv;
 var browserSync = require('browser-sync');
 var config = require('./gulp.config')();
 var del = require('del');
-var glob = require('glob');
 var gulp = require('gulp');
 var path = require('path');
 var _ = require('lodash');
@@ -15,8 +14,42 @@ var $ = require('gulp-load-plugins')({
 });
 
 var colors = $.util.colors;
-var envenv = $.util.env;
 var port = process.env.PORT || config.defaultPort;
+
+var env = {
+    sourceDir: './src/',
+    testDir: './test/',
+    buildDir: './build/',
+    tempDir: './tmp/',
+    port: process.env.PORT || 3000,
+
+    $: require('gulp-load-plugins')({lazy: true}),
+    args: require('yargs').argv,
+    gulp: require('gulp'),
+    log: function log(msg) {
+        if (typeof(msg) === 'object') {
+            for (var item in msg) {
+                if (msg.hasOwnProperty(item)) {
+                    $.util.log($.util.colors.blue(msg[item]));
+                }
+            }
+        } else {
+            $.util.log($.util.colors.blue(msg));
+        }
+    }
+
+};
+
+
+require('./gulp-tasks/help')(env);
+require('./gulp-tasks/vet')(env);
+require('./gulp-tasks/plato')(env);
+require('./gulp-tasks/styles')(env);
+require('./gulp-tasks/assets')(env);
+require('./gulp-tasks/clean')(env);
+
+
+gulp.task('default', ['help']);
 
 /**
  * yargs variables can be passed in to alter the behavior, when present.
@@ -30,86 +63,10 @@ var port = process.env.PORT || config.defaultPort;
  */
 
 /**
- * List the available gulp tasks
- */
-gulp.task('help', $.taskListing);
-gulp.task('default', ['help']);
-
-/**
- * vet the code and create coverage report
- * @return {Stream}
- */
-gulp.task('vet', function() {
-    log('Analyzing source with JSHint and JSCS');
-
-    return gulp
-        .src(config.alljs)
-        .pipe($.if(args.verbose, $.print()))
-        .pipe($.jshint())
-        .pipe($.jshint.reporter('jshint-stylish', {verbose: true}))
-        .pipe($.jshint.reporter('fail'))
-        .pipe($.jscs());
-});
-
-/**
- * Create a visualizer report
- */
-gulp.task('plato', function(done) {
-    log('Analyzing source with Plato');
-    log('Browse to /report/plato/index.html to see Plato results');
-
-    startPlatoVisualizer(done);
-});
-
-/**
- * Compile Sass to CSS
- * @return {Stream}
- */
-gulp.task('styles', ['clean-styles'], function() {
-    log('Compiling Sass --> CSS');
-
-    return gulp
-        .src(config.sassRoot)
-        .pipe($.plumber()) // exit gracefully if something fails after this
-        .pipe($.sass())
-        .pipe($.autoprefixer({browsers: ['last 2 version', '> 5%']}))
-        .pipe(gulp.dest(config.temp));
-});
-
-/**
- * Copy fonts
- * @return {Stream}
- */
-gulp.task('fonts', ['clean-fonts'], function() {
-    log('Copying fonts');
-
-    return gulp
-        .src(config.fonts)
-        .pipe(gulp.dest(config.build + 'fonts'));
-});
-
-/**
- * Compress images
- * @return {Stream}
- */
-gulp.task('images', ['clean-images'], function() {
-    log('Compressing and copying images');
-
-    return gulp
-        .src(config.images)
-        .pipe($.imagemin({optimizationLevel: 4}))
-        .pipe(gulp.dest(config.build + 'images'));
-});
-
-gulp.task('sass-watcher', function() {
-    gulp.watch([config.sass], ['styles']);
-});
-
-/**
  * Create $templateCache from the html templates
  * @return {Stream}
  */
-gulp.task('templatecache', ['clean-code'], function() {
+gulp.task('templatecache', ['clean-code'], function () {
     log('Creating an AngularJS $templateCache');
 
     return gulp
@@ -128,7 +85,7 @@ gulp.task('templatecache', ['clean-code'], function() {
  * Wire-up the bower dependencies
  * @return {Stream}
  */
-gulp.task('wiredep', function() {
+gulp.task('wiredep', function () {
     log('Wiring the bower dependencies into the html');
 
     var wiredep = require('wiredep').stream;
@@ -141,7 +98,7 @@ gulp.task('wiredep', function() {
         .pipe(gulp.dest(config.client));
 });
 
-gulp.task('inject', ['wiredep', 'styles', 'templatecache'], function() {
+gulp.task('inject', ['wiredep', 'styles', 'templatecache'], function () {
     log('Wire up css into the html, after files are ready');
 
     return gulp
@@ -154,7 +111,7 @@ gulp.task('inject', ['wiredep', 'styles', 'templatecache'], function() {
  * Run the spec runner
  * @return {Stream}
  */
-gulp.task('serve-specs', ['build-specs'], function(done) {
+gulp.task('serve-specs', ['build-specs'], function (done) {
     log('run the spec runner');
     serve(true /* isDev */, true /* specRunner */);
     done();
@@ -164,7 +121,7 @@ gulp.task('serve-specs', ['build-specs'], function(done) {
  * Inject all the spec files into the specs.html
  * @return {Stream}
  */
-gulp.task('build-specs', ['templatecache'], function(done) {
+gulp.task('build-specs', ['templatecache'], function (done) {
     log('building the spec runner');
 
     var wiredep = require('wiredep').stream;
@@ -197,7 +154,7 @@ gulp.task('build-specs', ['templatecache'], function(done) {
  * This is separate so we can run tests on
  * optimize before handling image or fonts
  */
-gulp.task('build', ['optimize', 'images', 'fonts'], function() {
+gulp.task('build', ['optimize', 'images', 'fonts'], function () {
     log('Building everything');
     del(config.temp);
 });
@@ -207,7 +164,7 @@ gulp.task('build', ['optimize', 'images', 'fonts'], function() {
  * and inject them into the new index.html
  * @return {Stream}
  */
-gulp.task('optimize', ['inject', 'test'], function() {
+gulp.task('optimize', ['inject', 'test'], function () {
     log('Optimizing the js, css, and html');
 
     var assets = $.useref.assets({searchPath: './'});
@@ -249,64 +206,13 @@ gulp.task('optimize', ['inject', 'test'], function() {
 });
 
 /**
- * Remove all files from the build, temp, and reports folders
- * @param  {Function} done - callback when complete
- */
-gulp.task('clean', function(done) {
-    var delconfig = [].concat(config.build, config.sassCache, config.temp, config.report);
-    log('Cleaning: ' + $.util.colors.blue(delconfig));
-    del(delconfig, done);
-});
-
-/**
- * Remove all fonts from the build folder
- * @param  {Function} done - callback when complete
- */
-gulp.task('clean-fonts', function(done) {
-    clean(config.build + 'fonts/**/*.*', done);
-});
-
-/**
- * Remove all images from the build folder
- * @param  {Function} done - callback when complete
- */
-gulp.task('clean-images', function(done) {
-    clean(config.build + 'images/**/*.*', done);
-});
-
-/**
- * Remove all styles from the build and temp folders
- * @param  {Function} done - callback when complete
- */
-gulp.task('clean-styles', function(done) {
-    var files = [].concat(
-        config.temp + '**/*.css',
-        config.build + 'styles/**/*.css'
-    );
-    clean(files, done);
-});
-
-/**
- * Remove all js and html from the build and temp folders
- * @param  {Function} done - callback when complete
- */
-gulp.task('clean-code', function(done) {
-    var files = [].concat(
-        config.temp + '**/*.js',
-        config.build + 'js/**/*.js',
-        config.build + '**/*.html'
-    );
-    clean(files, done);
-});
-
-/**
  * Run specs once and exit
  * To start servers and run midway specs as well:
  *    gulp test --startServers
  * @return {Stream}
  */
-gulp.task('test', ['vet', 'templatecache'], function(done) {
-    startTests(true /*singleRun*/ , done);
+gulp.task('test', ['vet', 'templatecache'], function (done) {
+    startTests(true /*singleRun*/, done);
 });
 
 /**
@@ -315,8 +221,8 @@ gulp.task('test', ['vet', 'templatecache'], function(done) {
  * To start servers and run midway specs as well:
  *    gulp autotest --startServers
  */
-gulp.task('autotest', function(done) {
-    startTests(false /*singleRun*/ , done);
+gulp.task('autotest', function (done) {
+    startTests(false /*singleRun*/, done);
 });
 
 /**
@@ -324,7 +230,7 @@ gulp.task('autotest', function(done) {
  * --debug-brk or --debug
  * --nosync
  */
-gulp.task('serve-dev', ['inject'], function() {
+gulp.task('serve-dev', ['inject'], function () {
     serve(true /*isDev*/);
 });
 
@@ -333,7 +239,7 @@ gulp.task('serve-dev', ['inject'], function() {
  * --debug-brk or --debug
  * --nosync
  */
-gulp.task('serve-build', ['build'], function() {
+gulp.task('serve-build', ['build'], function () {
     var msg = {
         title: 'gulp build',
         subtitle: 'Deployed to the build folder',
@@ -352,7 +258,7 @@ gulp.task('serve-build', ['build'], function() {
  * --type=major will bump the major version x.*.*
  * --version=1.2.3 will bump to a specific version and ignore other flags
  */
-gulp.task('bump', function() {
+gulp.task('bump', function () {
     var msg = 'Bumping versions';
     var type = args.type;
     var version = args.ver;
@@ -406,10 +312,6 @@ function changeEvent(event) {
  * @param  {Array}   path - array of paths to delete
  * @param  {Function} done - callback when complete
  */
-function clean(path, done) {
-    log('Cleaning: ' + $.util.colors.blue(path));
-    del(path, done);
-}
 
 /**
  * serve the code
@@ -439,10 +341,10 @@ function serve(isDev, specRunner) {
     }
 
     return $.nodemon(nodeOptions)
-        .on('restart', ['vet'], function(ev) {
+        .on('restart', ['vet'], function (ev) {
             log('*** nodemon restarted');
             log('files changed:\n' + ev);
-            setTimeout(function() {
+            setTimeout(function () {
                 browserSync.notify('reloading now ...');
                 browserSync.reload({stream: false});
             }, config.browserReloadDelay);
@@ -500,39 +402,12 @@ function startBrowserSync(isDev, specRunner) {
         logPrefix: 'angular-template',
         notify: true,
         reloadDelay: 0 //1000
-    } ;
+    };
     if (specRunner) {
         options.startPath = config.specRunnerFile;
     }
 
     browserSync(options);
-}
-
-/**
- * Start Plato inspector and visualizer
- */
-function startPlatoVisualizer(done) {
-    log('Running Plato');
-
-    var files = glob.sync(config.plato.js);
-    var excludeFiles = /.*\.spec\.js/;
-    var plato = require('plato');
-
-    var options = {
-        title: 'Plato Inspections Report',
-        exclude: excludeFiles
-    };
-    var outputDir = config.report + '/plato';
-
-    plato.inspect(files, outputDir, options, platoCompleted);
-
-    function platoCompleted(report) {
-        var overview = plato.getOverviewReport(report);
-        if (args.verbose) {
-            log(overview.summary);
-        }
-        if (done) { done(); }
-    }
 }
 
 /**

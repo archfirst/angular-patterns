@@ -46,7 +46,6 @@ module.exports = function() {
         ],
         sass: client + '**/*.scss',
         sassRoot: client + 'app.scss',
-        report: report,
         root: root,
         sassCache: sassCache,
         server: server,
@@ -60,11 +59,6 @@ module.exports = function() {
             app: 'app.js',
             lib: 'lib.js'
         },
-
-        /**
-         * plato
-         */
-        plato: {js: client + '**/*.js'},
 
         /**
          * browser sync
