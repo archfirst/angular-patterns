@@ -64,20 +64,20 @@ var gulp = require('gulp'),
     };
 
 [
-    './gulp-tasks/help',
-    './gulp-tasks/serve',
-    './gulp-tasks/vet',
-    './gulp-tasks/styles',
-    './gulp-tasks/clean',
-    './gulp-tasks/plato',
-    './gulp-tasks/assets',
-    './gulp-tasks/template-cache',
-    './gulp-tasks/inject',
-    './gulp-tasks/optimize',
-    './gulp-tasks/test',
-    './gulp-tasks/bump'
+    'help',
+    'serve',
+    'vet',
+    'styles',
+    'clean',
+    'plato',
+    'assets',
+    'template-cache',
+    'inject',
+    'optimize',
+    'test',
+    'bump'
 ].forEach(function (file) {
-        require(file)(env);
+        require('./gulp-tasks/' + file)(env);
     });
 
 
