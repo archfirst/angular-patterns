@@ -3,18 +3,29 @@
     'use strict';
 
     angular.module('app.profile')
-        .directive('profile', function () {
-
-            return {
-                restrict: 'E',
-                templateUrl: 'components/profile/profile.html',
-                controller: 'ProfileController',
-                controllerAs: 'vm',
-                bindToController: true
-            };
-        })
+        .directive('profile', profileDirective)
         .controller('ProfileController', ProfileController);
 
+
+    // ----- profileDirective -----
+    profileDirective.$inject = [];
+
+    /* @ngInject */
+    function profileDirective() {
+
+        var directive = {
+            restrict: 'E',
+            templateUrl: 'components/profile/profile.html',
+            controller: 'ProfileController',
+            controllerAs: 'vm',
+            bindToController: true
+        };
+
+        return directive;
+    }
+
+
+    // ----- ProfileController -----
     ProfileController.$inject = ['logger'];
 
     /* @ngInject */

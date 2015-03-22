@@ -31,6 +31,8 @@
         .module('app.core')
         .directive('atBarchart', barchartDirective);
 
+
+    // ----- barchartDirective -----
     barchartDirective.$inject = ['BarChart', '$window', '_'];
 
     /* @ngInject */
