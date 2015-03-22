@@ -18,6 +18,8 @@ var gulp = require('gulp'),
     $ = require('gulp-load-plugins')({ lazy: true }),
     src = './src/',
     env = {
+
+        // --- Configurables ---
         sourceDir: src,
         testDir: './test/',
         buildDir: './build/',
@@ -38,10 +40,11 @@ var gulp = require('gulp'),
             src + '**/*.js'
         ],
         html: src + '**/*.html',
-
         $: $,
         args: require('yargs').argv,
         gulp: gulp,
+
+        // --- Utilities ---
         log: function log(msg) {
             if (typeof(msg) === 'object') {
                 for (var item in msg) {
@@ -60,19 +63,22 @@ var gulp = require('gulp'),
 
     };
 
-
-require('./gulp-tasks/help')(env);
-require('./gulp-tasks/serve')(env);
-require('./gulp-tasks/vet')(env);
-require('./gulp-tasks/styles')(env);
-require('./gulp-tasks/clean')(env);
-require('./gulp-tasks/plato')(env);
-require('./gulp-tasks/assets')(env);
-require('./gulp-tasks/template-cache')(env);
-require('./gulp-tasks/inject')(env);
-require('./gulp-tasks/optimize')(env);
-require('./gulp-tasks/test')(env);
-require('./gulp-tasks/bump')(env);
+[
+    './gulp-tasks/help',
+    './gulp-tasks/serve',
+    './gulp-tasks/vet',
+    './gulp-tasks/styles',
+    './gulp-tasks/clean',
+    './gulp-tasks/plato',
+    './gulp-tasks/assets',
+    './gulp-tasks/template-cache',
+    './gulp-tasks/inject',
+    './gulp-tasks/optimize',
+    './gulp-tasks/test',
+    './gulp-tasks/bump'
+].forEach(function (file) {
+        require(file)(env);
+    });
 
 
 gulp.task('default', [ 'help' ]);
