@@ -40,14 +40,6 @@ module.exports = function() {
         temp: temp,
 
         /**
-         * optimized files
-         */
-        optimized: {
-            app: 'app.js',
-            lib: 'lib.js'
-        },
-
-        /**
          * browser sync
          */
         browserReloadDelay: 1000,
