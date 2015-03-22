@@ -64,10 +64,10 @@ var gulp = require('gulp'),
 require('./gulp-tasks/help')(env);
 require('./gulp-tasks/serve')(env);
 require('./gulp-tasks/vet')(env);
-require('./gulp-tasks/plato')(env);
 require('./gulp-tasks/styles')(env);
-require('./gulp-tasks/assets')(env);
 require('./gulp-tasks/clean')(env);
+require('./gulp-tasks/plato')(env);
+require('./gulp-tasks/assets')(env);
 require('./gulp-tasks/template-cache')(env);
 require('./gulp-tasks/inject')(env);
 require('./gulp-tasks/optimize')(env);
