@@ -1,12 +1,11 @@
-# Angular Template
-This template provides a starter project that implements best practices in coding, building and testing AngularJS applications. It is heavily influenced by John Papa's [AngularJS Style Guide](https://github.com/johnpapa/angularjs-styleguide) and his [Gulp Patterns](https://github.com/johnpapa/gulp-patterns) project. I would like to take this opportunity to thank John for providing these excellent resources to make our jobs easier and more enjoyable.
+# Angular Patterns
+This project illustrate AngularJS patterns and best practices using a simple application. It uses the [angular-template](https://github.com/archfirst/angular-template) project as a base to provide the basic application structure and build system.
 
 ## Requirements
 
 - Install Node
     - on OSX, install [home brew](http://brew.sh/) and type `brew install node`
     - on Windows, use the installer available at [nodejs.org](http://nodejs.org/)
-    - On OSX you can alleviate the need to run as sudo by [following John Papa's instructions](http://jpapa.me/nomoresudo)
 - Open terminal
 - Type `npm install -g node-inspector bower gulp`
 
@@ -57,12 +56,10 @@ The folder structure is somewhat simplified and flatter compared to John Papa's 
 
 ```
 /src
+    /components
     /core
-    /dashboard
     /framework
     /images
-    /profile
-    /app.controller.js
     /app.module.js
     /app.scss
     /index.html
@@ -73,7 +70,6 @@ The `src` folder contains only the source for the AngularJS client application. 
 - `index.html`
 - `app.scss`
 - `app.module.js`
-- `app.controller.js`
 
 Below this level you will find various folders that arrange the application's functionality into logical modules.
 
@@ -81,9 +77,7 @@ Below this level you will find various folders that arrange the application's fu
 
 - `core:` contains functionality that is shared across the application and will probably need customization for a specific application. This includes directives, filters and services and styles common to the entire application.
 
-- `dashboard:` A feature folder that implements a dashboard with rich functionality.
-
-- `profile:`: Another feature folder that implements a simple form.
+- `components:`: A folder that contains all the components of the application. We recommend thinking of an Angular application as a tree of components, starting with the `app` component as the root of the tree.
 
 - `images:` Images used in the application.
 
