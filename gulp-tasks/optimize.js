@@ -1,8 +1,15 @@
+var del = require('del');
+
 module.exports = function (env) {
 
     var gulp = env.gulp,
         $ = env.$,
         log = env.log;
+
+    gulp.task('build', [ 'optimize', 'images', 'fonts' ], function () {
+        log('Building everything');
+        del(env.tempDir);
+    });
 
     gulp.task('optimize', [ 'inject', 'test' ], function () {
         log('Optimizing the js, css, and html');

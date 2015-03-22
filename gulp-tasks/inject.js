@@ -5,18 +5,7 @@ module.exports = function (env) {
     var config = {
         indexHtml: env.sourceDir + 'index.html',
         css: env.tempDir + 'styles.css',
-        js: [
-            // module files in desired order
-            env.sourceDir + 'app.module.js',
-            env.sourceDir + 'core/core.module.js',
-            env.sourceDir + 'framework/**/*.module.js',
-            env.sourceDir + '**/*.module.js',
-
-            // remaining files in desired order
-            env.sourceDir + 'core/**/*.js',
-            env.sourceDir + 'framework/**/*.js',
-            env.sourceDir + '**/*.js'
-        ],
+        js: env.js
     };
 
     env.gulp.task('wiredep', function () {
