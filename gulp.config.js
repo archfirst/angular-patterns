@@ -26,24 +26,11 @@ module.exports = function() {
         ],
         build: './build/',
         client: client,
-        css: temp + 'styles.css',
         fonts: './bower_components/bootstrap-sass/assets/fonts/**/*.*',
         html: client + '**/*.html',
         htmltemplates: client + '**/*.html',
         images: client + 'images/**/*.*',
         index: client + 'index.html',
-        js: [
-            // module files in desired order
-            client + 'app.module.js',
-            client + 'core/core.module.js',
-            client + 'framework/**/*.module.js',
-            client + '**/*.module.js',
-
-            // remaining files in desired order
-            client + 'core/**/*.js',
-            client + 'framework/**/*.js',
-            client + '**/*.js'
-        ],
         sass: client + '**/*.scss',
         sassRoot: client + 'app.scss',
         root: root,
