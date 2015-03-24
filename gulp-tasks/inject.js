@@ -1,15 +1,16 @@
+var gulp = require('gulp');
 var wiredep = require('wiredep').stream;
 
-module.exports = function (env) {
+module.exports = function (config) {
 
-    var config = {
-        indexHtml: env.sourceDir + 'index.html',
-        css: env.tempDir + 'styles.css',
-        js: env.js
+    var injectConfig = {
+        indexHtml: config.sourceDir + 'index.html',
+        css: config.tempDir + 'styles.css',
+        js: config.js
     };
 
-    env.gulp.task('wiredep', function () {
-        env.log('Wiring the bower dependencies into the html');
+    gulp.task('wiredep', function () {
+        config.log('Wiring the bower dependencies into the html');
 
         var options = {
             bowerJson: require('../bower.json'),
@@ -17,20 +18,20 @@ module.exports = function (env) {
             ignorePath: '..'
         };
 
-        return env.gulp
-            .src(config.indexHtml)
+        return gulp
+            .src(injectConfig.indexHtml)
             .pipe(wiredep(options))
-            .pipe(env.$.inject(env.gulp.src(config.js)))
-            .pipe(env.gulp.dest(env.tempDir));
+            .pipe(config.$.inject(gulp.src(injectConfig.js)))
+            .pipe(gulp.dest(config.tempDir));
     });
 
-    env.gulp.task('inject', ['wiredep', 'styles', 'templatecache'], function () {
-        env.log('Wire up css into the html, after files are ready');
+    gulp.task('inject', ['wiredep', 'styles', 'templatecache'], function () {
+        config.log('Wire up css into the html, after files are ready');
 
-        return env.gulp
-            .src(config.indexHtml)
-            .pipe(env.$.inject(env.gulp.src(config.css)))
-            .pipe(env.gulp.dest(env.tempDir));
+        return gulp
+            .src(injectConfig.indexHtml)
+            .pipe(config.$.inject(gulp.src(injectConfig.css)))
+            .pipe(gulp.dest(config.tempDir));
     });
 
 

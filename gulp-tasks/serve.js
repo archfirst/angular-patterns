@@ -1,18 +1,18 @@
 var browserSync = require('browser-sync');
+var gulp = require('gulp');
 
-module.exports = function (env) {
+module.exports = function (config) {
 
-    var gulp = env.gulp,
-        args = env.args,
-        log = env.log,
-        notify = env.notify,
-        $ = env.$,
-        config = {
+    var args = config.args,
+        log = config.log,
+        notify = config.notify,
+        $ = config.$,
+        serverConfig = {
             sass: 'app.scss',
             server: './mock-server/',
             nodeServer: './mock-server/app.js',
-            js: env.js,
-            html: env.html
+            js: config.js,
+            html: config.html
         };
 
     gulp.task('serve-dev', [ 'inject' ], function () {
@@ -39,13 +39,13 @@ module.exports = function (env) {
         var debug = args.debug || args.debugBrk;
         var exec;
         var nodeOptions = {
-            script: config.nodeServer,
+            script: serverConfig.nodeServer,
             delayTime: 1,
             env: {
-                'PORT': env.proxyPort,
+                'PORT': config.proxyPort,
                 'NODE_ENV': isDev ? 'dev' : 'build'
             },
-            watch: [ config.server ]
+            watch: [ serverConfig.server ]
         };
 
         if (debug) {
@@ -62,7 +62,7 @@ module.exports = function (env) {
                 setTimeout(function () {
                     browserSync.notify('reloading now ...');
                     browserSync.reload({ stream: false });
-                }, env.browserReloadDelay);
+                }, config.browserReloadDelay);
             })
             .on('start', function () {
                 log('*** nodemon started');
@@ -85,25 +85,25 @@ module.exports = function (env) {
             return;
         }
 
-        log('Starting BrowserSync on port ' + env.port);
+        log('Starting BrowserSync on port ' + config.port);
 
         // If build: watches the files, builds, and restarts browser-sync.
         // If dev: watches sass, compiles it to css, browser-sync handles reload
         if (isDev) {
-            gulp.watch([ config.sass ], [ 'styles' ])
+            gulp.watch([ serverConfig.sass ], [ 'styles' ])
                 .on('change', changeEvent);
         } else {
-            gulp.watch([ config.sass, config.js, config.html ], [ 'optimize', browserSync.reload ])
+            gulp.watch([ serverConfig.sass, serverConfig.js, serverConfig.html ], [ 'optimize', browserSync.reload ])
                 .on('change', changeEvent);
         }
 
         var options = {
-            proxy: 'localhost:' + env.proxyPort,
-            port: env.port,
+            proxy: 'localhost:' + config.proxyPort,
+            port: config.port,
             files: isDev ? [
-                env.sourceDir + '**/*.*',
-                '!' + config.sass,
-                env.tempDir + '**/*.*'
+                config.sourceDir + '**/*.*',
+                '!' + serverConfig.sass,
+                config.tempDir + '**/*.*'
             ] : [],
             ghostMode: { // these are the defaults t,f,t,t
                 clicks: true,
@@ -124,7 +124,7 @@ module.exports = function (env) {
 
 
     function changeEvent(event) {
-        var srcPattern = new RegExp('/.*(?=/' + env.sourceDir + ')/');
+        var srcPattern = new RegExp('/.*(?=/' + config.sourceDir + ')/');
         log('File ' + event.path.replace(srcPattern, '') + ' ' + event.type);
     }
 };

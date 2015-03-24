@@ -1,18 +1,20 @@
-module.exports = function (env) {
+var gulp = require('gulp');
 
-    env.gulp.task('styles', ['clean-styles'], function () {
-        env.log('Compiling Sass --> CSS');
+module.exports = function (config) {
 
-        return env.gulp
-            .src(env.sourceDir + 'app.scss')
-            .pipe(env.$.plumber()) // exit gracefully if something fails after this
-            .pipe(env.$.sass())
-            .pipe(env.$.autoprefixer({browsers: ['last 2 version', '> 5%']}))
-            .pipe(env.gulp.dest(env.tempDir));
+    gulp.task('styles', ['clean-styles'], function () {
+        config.log('Compiling Sass --> CSS');
+
+        return gulp
+            .src(config.sourceDir + 'app.scss')
+            .pipe(config.$.plumber()) // exit gracefully if something fails after this
+            .pipe(config.$.sass())
+            .pipe(config.$.autoprefixer({browsers: ['last 2 version', '> 5%']}))
+            .pipe(gulp.dest(config.tempDir));
     });
 
-    env.gulp.task('sass-watcher', function () {
-        env.gulp.watch([env.sourceDir + '**/*.scss'], ['styles']);
+    gulp.task('sass-watcher', function () {
+        gulp.watch([config.sourceDir + '**/*.scss'], ['styles']);
     });
 
 };

@@ -1,9 +1,10 @@
-module.exports = function (env) {
+var gulp = require('gulp');
 
-    var gulp = env.gulp,
-        args = env.args,
-        log = env.log,
-        $ = env.$;
+module.exports = function (config) {
+
+    var args = config.args,
+        log = config.log,
+        $ = config.$;
 
     /**
      * Bump the version

@@ -1,6 +1,8 @@
-module.exports = function (env) {
+var gulp = require('gulp');
 
-    env.gulp.task('help', env.$.taskListing);
+module.exports = function (config) {
+
+    gulp.task('help', config.$.taskListing);
 
 };
 

@@ -17,7 +17,7 @@
 var gulp = require('gulp'),
     $ = require('gulp-load-plugins')({ lazy: true }),
     src = './src/',
-    env = {
+    config = {
 
         // --- Configurables ---
         sourceDir: src,
@@ -42,7 +42,6 @@ var gulp = require('gulp'),
         html: src + '**/*.html',
         $: $,
         args: require('yargs').argv,
-        gulp: gulp,
 
         // --- Utilities ---
         log: function log(msg) {
@@ -77,7 +76,7 @@ var gulp = require('gulp'),
     'test',
     'bump'
 ].forEach(function (file) {
-        require('./gulp-tasks/' + file)(env);
+        require('./gulp-tasks/' + file)(config);
     });
 
 

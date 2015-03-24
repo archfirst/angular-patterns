@@ -1,44 +1,45 @@
 var del = require('del');
+var gulp = require('gulp');
 
-module.exports = function (env) {
+module.exports = function (config) {
 
-    env.gulp.task('clean', function (done) {
-        var delconfig = [].concat(env.buildDir, './.sass-cache/', env.tempDir, './report/');
+    gulp.task('clean', function (done) {
+        var delconfig = [].concat(config.buildDir, './.sass-cache/', config.tempDir, './report/');
 
-        env.log('Cleaning: ' + env.$.util.colors.blue(delconfig));
+        config.log('Cleaning: ' + config.$.util.colors.blue(delconfig));
 
         del(delconfig, done);
     });
 
-    env.gulp.task('clean-fonts', function (done) {
-        clean(env.buildDir + 'fonts/**/*.*', done);
+    gulp.task('clean-fonts', function (done) {
+        clean(config.buildDir + 'fonts/**/*.*', done);
     });
 
-    env.gulp.task('clean-images', function (done) {
-        clean(env.buildDir + 'images/**/*.*', done);
+    gulp.task('clean-images', function (done) {
+        clean(config.buildDir + 'images/**/*.*', done);
     });
 
-    env.gulp.task('clean-code', function (done) {
+    gulp.task('clean-code', function (done) {
         var files = [].concat(
-            env.tempDir + '**/*.js',
-            env.buildDir + 'js/**/*.js',
-            env.buildDir + '**/*.html'
+            config.tempDir + '**/*.js',
+            config.buildDir + 'js/**/*.js',
+            config.buildDir + '**/*.html'
         );
 
         clean(files, done);
     });
 
-    env.gulp.task('clean-styles', function (done) {
+    gulp.task('clean-styles', function (done) {
         var files = [].concat(
-            env.tempDir + '**/*.css',
-            env.buildDir + 'styles/**/*.css'
+            config.tempDir + '**/*.css',
+            config.buildDir + 'styles/**/*.css'
         );
 
         clean(files, done);
     });
 
     function clean(path, done) {
-        env.log('Cleaning: ' + env.$.util.colors.blue(path));
+        config.log('Cleaning: ' + config.$.util.colors.blue(path));
         del(path, done);
     }
 

@@ -1,7 +1,8 @@
-module.exports = function (env) {
-    var gulp = env.gulp,
-        log = env.log,
-        args = env.args;
+var gulp = require('gulp');
+
+module.exports = function (config) {
+    var log = config.log,
+        args = config.args;
 
     gulp.task('test', [ 'vet', 'templatecache' ], function (done) {
         startTests(true /*singleRun*/, done);
@@ -17,7 +18,7 @@ module.exports = function (env) {
         var excludeFiles = [];
         var fork = require('child_process').fork;
         var karma = require('karma').server;
-        var serverSpecs = [env.testDir + 'server-integration/**/*.spec.js'];
+        var serverSpecs = [config.testDir + 'server-integration/**/*.spec.js'];
 
         if (args.startServers) {
             log('Starting servers');

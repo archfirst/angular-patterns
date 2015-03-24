@@ -1,8 +1,8 @@
 var gulp = require('gulp');
 
-module.exports = function (env) {
+module.exports = function (config) {
 
-    env.gulp.task('vet', vet);
+    gulp.task('vet', vet);
 
 
     /**
@@ -10,19 +10,19 @@ module.exports = function (env) {
      * @return {Stream}
      */
     function vet() {
-        env.log('Analyzing source with JSHint and JSCS');
+        config.log('Analyzing source with JSHint and JSCS');
 
-        return env.gulp
+        return gulp
             .src([
-                env.sourceDir + '**/*.js',
-                env.testDir + '**/*.js',
+                config.sourceDir + '**/*.js',
+                config.testDir + '**/*.js',
                 './*.js'
             ])
-            .pipe(env.$.if(env.args.verbose, env.$.print()))
-            .pipe(env.$.jshint())
-            .pipe(env.$.jshint.reporter('jshint-stylish', {verbose: true}))
-            .pipe(env.$.jshint.reporter('fail'))
-            .pipe(env.$.jscs());
+            .pipe(config.$.if(config.args.verbose, config.$.print()))
+            .pipe(config.$.jshint())
+            .pipe(config.$.jshint.reporter('jshint-stylish', {verbose: true}))
+            .pipe(config.$.jshint.reporter('fail'))
+            .pipe(config.$.jscs());
     }
 };
 

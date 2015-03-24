@@ -1,22 +1,24 @@
-module.exports = function (env) {
+var gulp = require('gulp');
 
-    env.gulp.task('fonts', ['clean-fonts'], function () {
-        env.log('Copying fonts');
+module.exports = function (config) {
+
+    gulp.task('fonts', ['clean-fonts'], function () {
+        config.log('Copying fonts');
 
         var fontDir = './bower_components/bootstrap-sass/assets/fonts/**/*.*';
 
-        return env.gulp
+        return gulp
             .src(fontDir)
-            .pipe(env.gulp.dest(env.buildDir + 'fonts'));
+            .pipe(gulp.dest(config.buildDir + 'fonts'));
     });
 
-    env.gulp.task('images', ['clean-images'], function () {
-        env.log('Compressing and copying images');
+    gulp.task('images', ['clean-images'], function () {
+        config.log('Compressing and copying images');
 
-        return env.gulp
-            .src(env.sourceDir + 'images/**/*.*')
-            .pipe(env.$.imagemin({optimizationLevel: 4}))
-            .pipe(env.gulp.dest(env.buildDir + 'images'));
+        return gulp
+            .src(config.sourceDir + 'images/**/*.*')
+            .pipe(config.$.imagemin({optimizationLevel: 4}))
+            .pipe(gulp.dest(config.buildDir + 'images'));
     });
 
 

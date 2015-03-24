@@ -1,14 +1,14 @@
+var gulp = require('gulp');
 var del = require('del');
 
-module.exports = function (env) {
+module.exports = function (config) {
 
-    var gulp = env.gulp,
-        $ = env.$,
-        log = env.log;
+    var $ = config.$,
+        log = config.log;
 
     gulp.task('build', [ 'optimize', 'images', 'fonts' ], function () {
         log('Building everything');
-        del(env.tempDir);
+        del(config.tempDir);
     });
 
     gulp.task('optimize', [ 'inject', 'test' ], function () {
@@ -21,10 +21,10 @@ module.exports = function (env) {
         var jsAppFilter = $.filter('**/app.js');
         var jslibFilter = $.filter('**/lib.js');
 
-        var templateCacheFile = env.tempDir + 'templates.js';
+        var templateCacheFile = config.tempDir + 'templates.js';
 
-        return env.gulp
-            .src(env.sourceDir + 'index.html')
+        return gulp
+            .src(config.sourceDir + 'index.html')
             .pipe($.plumber())
             .pipe($.inject(gulp.src(templateCacheFile),
                 { name: 'inject:templates', read: false }))
@@ -50,7 +50,7 @@ module.exports = function (env) {
             .pipe($.useref())
             // Replace the file names in the html with rev numbers
             .pipe($.revReplace())
-            .pipe(gulp.dest(env.buildDir));
+            .pipe(gulp.dest(config.buildDir));
     });
 
 

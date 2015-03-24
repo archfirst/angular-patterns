@@ -1,12 +1,14 @@
-module.exports = function (env) {
+var gulp = require('gulp');
 
-    var config = {
+module.exports = function (config) {
+
+    var templateCacheConfig = {
         templateFiles: [
-            env.sourceDir + '**/*.html',
-            '!' + env.sourceDir + 'index.html'
+            config.sourceDir + '**/*.html',
+            '!' + config.sourceDir + 'index.html'
         ],
         file: 'templates.js',
-        destDir: env.tempDir,
+        destDir: config.tempDir,
         options: {
             module: 'app.core',
             root: '',
@@ -14,19 +16,19 @@ module.exports = function (env) {
         }
     };
 
-    env.gulp.task('templatecache', [ 'clean-code' ], function () {
-        env.log('Creating an AngularJS $templateCache at ' + env.tempDir + config.file);
+    gulp.task('templatecache', ['clean-code'], function () {
+        config.log('Creating an AngularJS $templateCache at ' + config.tempDir + templateCacheConfig.file);
 
-        return env.gulp
-            .src(config.templateFiles)
-            .pipe(env.$.if(env.args.verbose, env.$.bytediff.start()))
-            .pipe(env.$.minifyHtml({ empty: true }))
-            .pipe(env.$.if(env.args.verbose, env.$.bytediff.stop(bytediffFormatter)))
-            .pipe(env.$.angularTemplatecache(
-                config.file,
-                config.options
+        return gulp
+            .src(templateCacheConfig.templateFiles)
+            .pipe(config.$.if(config.args.verbose, config.$.bytediff.start()))
+            .pipe(config.$.minifyHtml({empty: true}))
+            .pipe(config.$.if(config.args.verbose, config.$.bytediff.stop(bytediffFormatter)))
+            .pipe(config.$.angularTemplatecache(
+                templateCacheConfig.file,
+                templateCacheConfig.options
             ))
-            .pipe(env.gulp.dest(config.destDir));
+            .pipe(gulp.dest(templateCacheConfig.destDir));
     });
 
 
