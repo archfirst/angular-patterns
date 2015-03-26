@@ -8,11 +8,8 @@ module.exports = function (config) {
         notify = config.notify,
         $ = config.$,
         serverConfig = {
-            sass: config.sourceDir + '**/*.scss',
             server: './mock-server/',
-            nodeServer: './mock-server/app.js',
-            js: config.js,
-            html: config.html
+            nodeServer: './mock-server/app.js'
         };
 
     gulp.task('serve-dev', [ 'inject' ], function () {
@@ -90,10 +87,10 @@ module.exports = function (config) {
         // If build: watches the files, builds, and restarts browser-sync.
         // If dev: watches sass, compiles it to css, browser-sync handles reload
         if (isDev) {
-            gulp.watch([ serverConfig.sass ], [ 'styles' ])
+            gulp.watch([ config.sass ], [ 'styles' ])
                 .on('change', changeEvent);
         } else {
-            gulp.watch([ serverConfig.sass, serverConfig.js, serverConfig.html ], [ 'optimize', browserSync.reload ])
+            gulp.watch([ config.sass, config.js, config.html ], [ 'optimize', browserSync.reload ])
                 .on('change', changeEvent);
         }
 
