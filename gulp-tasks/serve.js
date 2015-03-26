@@ -102,6 +102,7 @@ module.exports = function (config) {
             port: config.port,
             files: isDev ? [
                 config.sourceDir + '**/*.*',
+                '!' + config.sass,
                 config.tempDir + '**/*.*'
             ] : [],
             ghostMode: { // these are the defaults t,f,t,t
