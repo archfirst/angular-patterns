@@ -8,7 +8,7 @@ module.exports = function (config) {
         notify = config.notify,
         $ = config.$,
         serverConfig = {
-            sass: 'app.scss',
+            sass: config.sourceDir + '**/*.scss',
             server: './mock-server/',
             nodeServer: './mock-server/app.js',
             js: config.js,
@@ -102,7 +102,6 @@ module.exports = function (config) {
             port: config.port,
             files: isDev ? [
                 config.sourceDir + '**/*.*',
-                '!' + serverConfig.sass,
                 config.tempDir + '**/*.*'
             ] : [],
             ghostMode: { // these are the defaults t,f,t,t
