@@ -17,7 +17,10 @@
 var gulp = require('gulp'),
     $ = require('gulp-load-plugins')({lazy: true}),
     src = './src/',
-    config = require('./gulp.config');
+    config = require('./gulp.config'),
+    buildTask = (function (config, taskFile) {
+        require('./gulp-tasks/' + taskFile)(config);
+    }).bind(null, config);
 
 [
     'help',
@@ -32,9 +35,7 @@ var gulp = require('gulp'),
     'optimize',
     'test',
     'bump'
-].forEach(function (file) {
-        require('./gulp-tasks/' + file)(config);
-    });
+].forEach(buildTask);
 
 
 gulp.task('default', ['help']);

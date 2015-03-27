@@ -6,13 +6,9 @@ module.exports = function (config) {
     var args = config.args,
         log = config.log,
         notify = config.notify,
-        $ = config.$,
-        serverConfig = {
-            server: './mock-server/',
-            nodeServer: './mock-server/app.js'
-        };
+        $ = config.$;
 
-    gulp.task('serve-dev', [ 'inject' ], function () {
+    gulp.task('serve-dev', ['inject'], function () {
         serve(true /*isDev*/);
     });
 
@@ -21,7 +17,7 @@ module.exports = function (config) {
      * --debug-brk or --debug
      * --nosync
      */
-    gulp.task('serve-build', [ 'build' ], function () {
+    gulp.task('serve-build', ['build'], function () {
         var msg = {
             title: 'gulp build',
             subtitle: 'Deployed to the build folder',
@@ -36,29 +32,29 @@ module.exports = function (config) {
         var debug = args.debug || args.debugBrk;
         var exec;
         var nodeOptions = {
-            script: serverConfig.nodeServer,
+            script: './mock-server/app.js',
             delayTime: 1,
             env: {
                 'PORT': config.proxyPort,
                 'NODE_ENV': isDev ? 'dev' : 'build'
             },
-            watch: [ serverConfig.server ]
+            watch: ['./mock-server/']
         };
 
         if (debug) {
             log('Running node-inspector. Browse to http://localhost:8080/debug?port=5858');
             exec = require('child_process').exec;
             exec('node-inspector');
-            nodeOptions.nodeArgs = [ '--debug=5858' ];
+            nodeOptions.nodeArgs = ['--debug=5858'];
         }
 
         return $.nodemon(nodeOptions)
-            .on('restart', [ 'vet' ], function (ev) {
+            .on('restart', ['vet'], function (ev) {
                 log('*** nodemon restarted');
                 log('files changed:\n' + ev);
                 setTimeout(function () {
                     browserSync.notify('reloading now ...');
-                    browserSync.reload({ stream: false });
+                    browserSync.reload({stream: false});
                 }, config.browserReloadDelay);
             })
             .on('start', function () {
@@ -87,11 +83,9 @@ module.exports = function (config) {
         // If build: watches the files, builds, and restarts browser-sync.
         // If dev: watches sass, compiles it to css, browser-sync handles reload
         if (isDev) {
-            gulp.watch([ config.sass ], [ 'styles' ])
-                .on('change', changeEvent);
+            gulp.watch([config.sass], ['styles']);
         } else {
-            gulp.watch([ config.sass, config.js, config.html ], [ 'optimize', browserSync.reload ])
-                .on('change', changeEvent);
+            gulp.watch([config.sass, config.js, config.html], ['optimize', browserSync.reload]);
         }
 
         var options = {
@@ -102,7 +96,7 @@ module.exports = function (config) {
                 '!' + config.sass,
                 config.tempDir + '**/*.*'
             ] : [],
-            ghostMode: { // these are the defaults t,f,t,t
+            ghostMode: {
                 clicks: true,
                 location: false,
                 forms: true,
@@ -110,7 +104,7 @@ module.exports = function (config) {
             },
             injectChanges: true,
             logFileChanges: true,
-            logLevel: 'debug',
+            logLevel: 'info',
             logPrefix: 'angular-patterns',
             notify: true,
             reloadDelay: 0 //1000
@@ -119,10 +113,5 @@ module.exports = function (config) {
         browserSync(options);
     }
 
-
-    function changeEvent(event) {
-        var srcPattern = new RegExp('/.*(?=/' + config.sourceDir + ')/');
-        log('File ' + event.path.replace(srcPattern, '') + ' ' + event.type);
-    }
 };
 
