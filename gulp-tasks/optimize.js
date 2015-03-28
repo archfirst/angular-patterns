@@ -26,8 +26,6 @@ module.exports = function (config) {
         return gulp
             .src(config.sourceDir + 'index.html')
             .pipe($.plumber())
-            .pipe($.inject(gulp.src(templateCacheFile),
-                { name: 'inject:templates', read: false }))
             .pipe(assets) // Gather all assets from the html with useref
             // Get the css
             .pipe(cssFilter)

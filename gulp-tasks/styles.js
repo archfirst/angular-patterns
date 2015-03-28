@@ -11,8 +11,7 @@ module.exports = function (config) {
             .pipe(config.$.plumber()) // exit gracefully if something fails after this
             .pipe(config.$.sass())
             .pipe(config.$.autoprefixer({browsers: ['last 2 version', '> 5%']}))
-            .pipe(gulp.dest(config.tempDir))
-            .pipe(reload({stream: true}));
+            .pipe(gulp.dest(config.tempDir));
     });
 
     gulp.task('sass-watcher', function () {

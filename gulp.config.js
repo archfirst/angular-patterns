@@ -1,5 +1,7 @@
 /* jshint node: true, -W024, -W040, -W098, -W126 */
 
+'use strict';
+
 var $ = require('gulp-load-plugins')({lazy: true}),
     src = './src/';
 
@@ -15,15 +17,12 @@ module.exports = {
     browserReloadDelay: 1000,
     js: [
         // module files in desired order
-        src + 'app.module.js',
-        src + 'core/core.module.js',
-        src + 'framework/**/*.module.js',
         src + '**/*.module.js',
 
         // remaining files in desired order
         src + 'core/**/*.js',
         src + 'framework/**/*.js',
-        src + '**/*.js'
+        src + '**/*.js',
     ],
     html: src + '**/*.html',
     sass: src + '**/*.scss',

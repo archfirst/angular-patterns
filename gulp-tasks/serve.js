@@ -1,5 +1,6 @@
 var browserSync = require('browser-sync');
 var gulp = require('gulp');
+var watch = require('gulp-watch');
 
 module.exports = function (config) {
 
@@ -74,6 +75,7 @@ module.exports = function (config) {
      * --nosync will avoid browserSync
      */
     function startBrowserSync(isDev) {
+
         if (args.nosync || browserSync.active) {
             return;
         }
@@ -82,20 +84,24 @@ module.exports = function (config) {
 
         // If build: watches the files, builds, and restarts browser-sync.
         // If dev: watches sass, compiles it to css, browser-sync handles reload
+        var files = [].concat(config.js, config.html, config.sass);
         if (isDev) {
-            gulp.watch([config.sass], ['styles']);
+            watch(files, function(){ gulp.start('inject', browserSync.reload); });
         } else {
-            gulp.watch([config.sass, config.js, config.html], ['optimize', browserSync.reload]);
+            watch(files, function(){ gulp.start('optimize', browserSync.reload); });
         }
 
         var options = {
-            proxy: 'localhost:' + config.proxyPort,
+            server: {
+                baseDir: isDev ? config.tempDir : config.buildDir,
+                routes: isDev ? {
+                    '/bower_components': './bower_components',
+                    '/src': config.sourceDir,
+                    '/images': config.sourceDir + 'images',
+                    '/.tmp': config.tempDir,
+                } : {}
+            },
             port: config.port,
-            files: isDev ? [
-                config.sourceDir + '**/*.*',
-                '!' + config.sass,
-                config.tempDir + '**/*.*'
-            ] : [],
             ghostMode: {
                 clicks: true,
                 location: false,
