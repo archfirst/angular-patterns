@@ -1,5 +1,5 @@
 var gulp = require('gulp');
-var reload = require('browser-sync').reload;
+var watch = require('gulp-watch');
 
 module.exports = function (config) {
 
@@ -12,10 +12,11 @@ module.exports = function (config) {
             .pipe(config.$.sass())
             .pipe(config.$.autoprefixer({browsers: ['last 2 version', '> 5%']}))
             .pipe(gulp.dest(config.tempDir));
+
     });
 
     gulp.task('sass-watcher', function () {
-        gulp.watch([config.sourceDir + '**/*.scss'], ['styles']);
+        watch(config.sass, function () { gulp.start('styles'); });
     });
 
 };

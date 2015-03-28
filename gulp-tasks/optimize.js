@@ -21,10 +21,8 @@ module.exports = function (config) {
         var jsAppFilter = $.filter('**/app.js');
         var jslibFilter = $.filter('**/lib.js');
 
-        var templateCacheFile = config.tempDir + 'templates.js';
-
         return gulp
-            .src(config.sourceDir + 'index.html')
+            .src(config.tempDir + 'index.html')
             .pipe($.plumber())
             .pipe(assets) // Gather all assets from the html with useref
             // Get the css

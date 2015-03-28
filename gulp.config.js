@@ -22,7 +22,7 @@ module.exports = {
         // remaining files in desired order
         src + 'core/**/*.js',
         src + 'framework/**/*.js',
-        src + '**/*.js',
+        src + '**/*.js'
     ],
     html: src + '**/*.html',
     sass: src + '**/*.scss',
