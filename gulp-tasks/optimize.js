@@ -37,7 +37,7 @@ module.exports = function (config) {
             .pipe(jsAppFilter.restore())
             // Get the vendor javascript
             .pipe(jslibFilter)
-            .pipe($.uglify()) // another option is to override wiredep to use min files
+            .pipe($.uglify())
             .pipe(jslibFilter.restore())
             // Take inventory of the file names for future rev numbers
             .pipe($.rev())

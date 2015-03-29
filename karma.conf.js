@@ -14,7 +14,6 @@ module.exports = function (config) {
 
         // list of files / patterns to load in the browser
         files: [].concat(
-            require('wiredep')({ devDependencies: true }).js,
             'test/helpers/*.js',
             'src/**/*.module.js',
             'src/**/*.js',
