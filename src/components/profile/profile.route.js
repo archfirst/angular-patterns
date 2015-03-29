@@ -17,7 +17,7 @@
             {
                 state: 'profile',
                 config: {
-                    url: '/profile',
+                    url: '/#profile',
                     template: '<profile></profile>',
                     title: 'Profile',
                     settings: {
