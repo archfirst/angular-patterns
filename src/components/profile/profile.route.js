@@ -18,7 +18,7 @@
                 state: 'profile',
                 config: {
                     url: '/#profile',
-                    template: '<profile></profile>',
+                    template: '<ptrn-profile></ptrn-profile>',
                     title: 'Profile',
                     settings: {
                         nav: 2  // position in navbar

@@ -3,7 +3,7 @@
     'use strict';
 
     angular.module('app.profile')
-        .directive('profile', profileDirective);
+        .directive('ptrnProfile', profileDirective);
 
 
     // ----- profileDirective -----

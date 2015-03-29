@@ -18,7 +18,7 @@
                 state: 'dashboard',
                 config: {
                     url: '/',
-                    template: '<dashboard></dashboard>',
+                    template: '<ptrn-dashboard></ptrn-dashboard>',
                     title: 'Dashboard',
                     settings: {
                         nav: 1  // position in navbar

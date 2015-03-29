@@ -3,11 +3,11 @@
     care of the Angular side of the instrumentation, the D3 rendering
     is handled by the BarChart class provided by the barchart factory.
 
-    Note: the prefix "at" in "at-barchart" stands for "angular-template".
+    Note: the prefix "ptrn" in "ptrn-barchart" stands for "patterns".
     You should choose a unique and descriptive prefix for your directives.
 
     Usage:
-        <at-barchart data-chartdata="vm.chartdata"></at-barchart>
+        <ptrn-barchart data-chartdata="vm.chartdata"></ptrn-barchart>
 
     Chart data should be in the following format:
 
@@ -29,7 +29,7 @@
 
     angular
         .module('app.core')
-        .directive('atBarchart', barchartDirective);
+        .directive('ptrnBarchart', barchartDirective);
 
 
     // ----- barchartDirective -----
