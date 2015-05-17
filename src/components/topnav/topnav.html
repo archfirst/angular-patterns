@@ -12,9 +12,11 @@
 
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li ng-repeat="route in vm.navRoutes" ng-class="vm.isActive(route)">
-                    <a ui-sref="{{route.name}}"
-                       ng-bind="route.title"></a>
+                <li ui-sref-active="active">
+                    <a ui-sref="dashboard">Dashboard</a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="profile">Profile</a>
                 </li>
             </ul>
         </div>
