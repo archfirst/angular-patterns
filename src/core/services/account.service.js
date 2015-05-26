@@ -18,14 +18,14 @@
 
         function getAccount() {
             return $http.get(api + '/account')
-                .then(getAccountComplete)
+                .then(getAccountSuccess)
                 .catch(function(message) {
                     exception.catcher('XHR Failed for getAccount')(message);
                     $location.url('/');
                 });
 
-            function getAccountComplete(data) {
-                return data.data;
+            function getAccountSuccess(response) {
+                return response.data;
             }
         }
     }
