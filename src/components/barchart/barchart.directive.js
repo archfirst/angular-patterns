@@ -78,7 +78,7 @@
                 if (!chartdata) { return; }
 
                 barChart
-                    .width(element.width())
+                    .width(element[0].offsetWidth)
                     .draw(chartdata);
             }
         }
