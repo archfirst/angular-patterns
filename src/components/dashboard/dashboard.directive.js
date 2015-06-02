@@ -38,7 +38,7 @@
 
         function activate() {
             return getAccount().then(function () {
-                logger.info('Activated Dashboard View');
+                logger.log('Activated Dashboard View');
             });
         }
 
