@@ -28,7 +28,7 @@
     'use strict';
 
     angular
-        .module('app.core')
+        .module('app.barchart')
         .directive('ptrnBarchart', barchartDirective);
 
 

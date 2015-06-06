@@ -6,8 +6,8 @@
         'app.core',
 
         // Features
-        'app.topnav',
         'app.dashboard',
-        'app.profile'
+        'app.profile',
+        'app.topnav'
     ]);
 })();

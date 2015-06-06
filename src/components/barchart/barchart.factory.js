@@ -8,7 +8,7 @@
     'use strict';
 
     angular
-        .module('app.core')
+        .module('app.barchart')
         .factory('BarChart', barchartFactory);
 
     barchartFactory.$inject = ['d3'];
