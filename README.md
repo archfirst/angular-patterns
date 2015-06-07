@@ -1,8 +1,15 @@
 # Angular Patterns
+
+## This sample has been depricated!
+Please use the following projects as better examples of using the [Angular Template](https://github.com/archfirst/angular-template):
+
+- [Manage My Money Client](https://github.com/archfirst/manage-my-money-client) (AngularJS best practices)
+- [Manage My Money Server](https://github.com/archfirst/manage-my-money-server) (Node.js, REST and Bookshelf best practices)
+
+## Description
 This project illustrate AngularJS patterns and best practices using a simple application. It uses the [angular-template](https://github.com/archfirst/angular-template) project as a base to provide the basic application structure and build system.
 
 ## Requirements
-
 - Install Node
     - on OSX, install [home brew](http://brew.sh/) and type `brew install node`
     - on Windows, use the installer available at [nodejs.org](http://nodejs.org/)
