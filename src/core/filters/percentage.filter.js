@@ -8,12 +8,12 @@
 
     angular
         .module('app.core')
-        .filter('percentage', formatPercent);
+        .filter('percentage', filterFunction);
 
-    formatPercent.$inject = ['$filter'];
+    filterFunction.$inject = ['$filter'];
 
     /* @ngInject */
-    function formatPercent($filter) {
+    function filterFunction($filter) {
         return function(input, decimals) {
             return $filter('number')(input * 100, decimals) + '%';
         };

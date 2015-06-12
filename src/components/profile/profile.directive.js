@@ -3,14 +3,14 @@
     'use strict';
 
     angular.module('app.profile')
-        .directive('ptrnProfile', profileDirective);
+        .directive('ptrnProfile', directiveFunction);
 
 
-    // ----- profileDirective -----
-    profileDirective.$inject = [];
+    // ----- directiveFunction -----
+    directiveFunction.$inject = [];
 
     /* @ngInject */
-    function profileDirective() {
+    function directiveFunction() {
 
         var directive = {
             restrict: 'E',

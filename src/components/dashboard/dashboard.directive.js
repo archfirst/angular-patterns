@@ -3,15 +3,15 @@
     'use strict';
 
     angular.module('app.dashboard')
-        .directive('ptrnDashboard', dashboardDirective)
-        .controller('DashboardController', DashboardController);
+        .directive('ptrnDashboard', directiveFunction)
+        .controller('DashboardController', ControllerFunction);
 
 
-    // ----- dashboardDirective -----
-    dashboardDirective.$inject = [];
+    // ----- directiveFunction -----
+    directiveFunction.$inject = [];
 
     /* @ngInject */
-    function dashboardDirective() {
+    function directiveFunction() {
 
         var directive = {
             restrict: 'E',
@@ -24,11 +24,11 @@
     }
 
 
-    // ----- DashboardController -----
-    DashboardController.$inject = ['accountService', 'logger', '_'];
+    // ----- ControllerFunction -----
+    ControllerFunction.$inject = ['accountService', 'logger', '_'];
 
     /* @ngInject */
-    function DashboardController(accountService, logger, _) {
+    function ControllerFunction(accountService, logger, _) {
         var vm = this;
 
         vm.account = null;

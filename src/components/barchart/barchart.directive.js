@@ -29,14 +29,14 @@
 
     angular
         .module('app.barchart')
-        .directive('ptrnBarchart', barchartDirective);
+        .directive('ptrnBarchart', directiveFunction);
 
 
-    // ----- barchartDirective -----
-    barchartDirective.$inject = ['BarChart', '$window', '_'];
+    // ----- directiveFunction -----
+    directiveFunction.$inject = ['BarChart', '$window', '_'];
 
     /* @ngInject */
-    function barchartDirective(BarChart, $window, _) {
+    function directiveFunction(BarChart, $window, _) {
 
         var directive = {
             link: link,

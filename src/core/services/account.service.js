@@ -4,12 +4,12 @@
 
     angular
         .module('app.core')
-        .factory('accountService', accountService);
+        .factory('accountService', serviceFunction);
 
-    accountService.$inject = ['$http', '$location', 'exception', 'api'];
+    serviceFunction.$inject = ['$http', '$location', 'exception', 'api'];
 
     /* @ngInject */
-    function accountService($http, $location, exception, api) {
+    function serviceFunction($http, $location, exception, api) {
         var service = {
             getAccount: getAccount
         };

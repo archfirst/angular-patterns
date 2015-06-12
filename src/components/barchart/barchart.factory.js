@@ -9,12 +9,12 @@
 
     angular
         .module('app.barchart')
-        .factory('BarChart', barchartFactory);
+        .factory('BarChart', factoryFunction);
 
-    barchartFactory.$inject = ['d3'];
+    factoryFunction.$inject = ['d3'];
 
     /* @ngInject */
-    function barchartFactory(d3) {
+    function factoryFunction(d3) {
 
         function BarChart(svgElement) {
             this.base = d3.select(svgElement);
